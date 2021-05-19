@@ -1,0 +1,236 @@
+
+{% extends "home/base.html" %}
+{% block content %}
+<div >
+<header class="slider-main">
+    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+        <ol class="carousel-indicators">
+           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+           <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+           <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+           <!-- Slide One - Set the background image for this slide in the line below -->
+           <div class="carousel-item active" style="background-image: url('../static/home/images/slider-01.jpg')">
+              <div class="carousel-caption d-none d-md-block">
+                 <h3><span style="color:whitesmoke">Welcome to A</span><span style="color:orange;">J</span><span style="color:whitesmoke"> Competitions</h3>
+                 <p>Let<span style="color:orange;">'s </span><span style="color:orange;">P</span>articipate</p>
+              </div>
+           </div>
+           <!-- Slide Two - Set the background image for this slide in the line below -->
+           <div class="carousel-item" style="background-image: url('../static/home/images/slider-02.jpg')">
+              <div class="carousel-caption d-none d-md-block">
+                 <h3>Competitons |<span style="color:whitesmoke"> Draws</span> | Winners.</h3>
+                 <p>Now take part to win prizes</p>
+              </div>
+           </div>
+           <!-- Slide Three - Set the background image for this slide in the line below -->
+           <div class="carousel-item" style="background-image: url('../static/home/images/slider-03.jpg')">
+              <div class="carousel-caption d-none d-md-block">
+               <h3><span style="color:whitesmoke">Welcome to A</span><span style="color:orange;">J</span><span style="color:whitesmoke"> Competitions</h3>
+                 <p>Now Time to Test Your Luck <span style="color:orange">!</span></p>
+              </div>
+           </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</header>
+</div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<!-- Page Content -->
+<div class="container">        
+    <!-- About Section -->
+    <div class="about-main">
+        <div class="row">
+           <div class="col-lg-6">
+            <h3><span style="color:black">Welcome to A</span><span style="color:orange;">J</span><span style="color:black"> Competitions</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
+              <h5>Our smart approach</h5>
+              <ul>
+                 <li>Sed at tellus eu quam posuere mattis.</li>
+                 <li>Phasellus quis erat et enim laoreet posuere ac porttitor ipsum.</li>
+                 <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>                     
+              </ul>
+           </div>
+           <div class="col-lg-6">
+              <img class="img-fluid rounded" src="../static/home/images/about-img.jpg" alt="" />
+           </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <br><br>
+<!----Live Competitions----->
+<h1 style="text-align:center;font-family: Georgia, 'Times New Roman', Times, serif;border-bottom:4px solid orange;">LIVE COMPETITIONS</h1>
+<br><br>
+
+<div class="card-deck color0">
+  {% for competition in competitions %}
+  {% if forloop.counter|divisibleby:4 %}
+  <br><br>
+  </div>
+
+  <div class="card-deck {% cycle 'color1' 'color0' %}">
+  {% endif %}
+
+   <div class="card" style="display:block">
+     {% if competition.image %}
+     <img class="card-img-top w-100 h-50" src="{{ competition.image.url }}" alt="Card image cap">
+     {% endif %}
+     <div class="card-body">
+       <h3 class="card-title">{{competition.name}}</h3>
+       <input type="hidden"  class="{{competition.end_time}}" value="{{competition.status}}">
+
+      <span>Price per Ticket:</span> <h5 class="card-text">{{competition.price}}€</h5>
+      <p id="demo">
+
+      </p>
+      <div id="timer">
+      <p id="end"  >{{competition.end_time}}</p>
+
+      <span>End Time:</span> <h5 class="card-text end_time" id="{{competition.end_time}}"></h5>
+      </div>
+
+       <p class="card-text">{{competition.description}}</p>
+       {% if competition.slug %}
+       <a href="{% url 'PostDetail' competition.slug %}" class="btn btn-danger">Read More&rarr;</a>
+       {% endif %}
+     </div>
+   </div>
+ 
+   {% endfor %}
+ </div>
+
+
+<br>
+
+
+    
+
+<br><br>
+
+<!----Upcoming Draws------>
+<div>
+    <h1 style="text-align:center;font-family: Georgia, 'Times New Roman', Times, serif;border-bottom:4px solid orange;">UPCOMING DRAWS</h1>
+<br><br>
+<div class="card-deck color0">
+  {% for competition in competitions %}
+  {% if forloop.counter|divisibleby:4 %}
+  <br><br>
+  </div>
+
+  <div class="card-deck {% cycle 'color1' 'color0' %}">
+  {% endif %}
+
+   <div class="card">
+     {% if competition.image %}
+     <img class="card-img-top w-100 h-50" src="{{ competition.image.url }}" alt="Card image cap">
+     {% endif %}
+     <div class="card-body">
+       <h3 class="card-title">{{competition.name}}</h3>
+       <input type="hidden"  class="{{competition.end_time}}" value="{{competition.status}}">
+
+      <span>Price per Ticket:</span> <h5 class="card-text">{{competition.price}}€</h5>
+      <p id="demo">
+
+      </p>
+
+      <!-- <script>myFunction();</script> -->
+      <span>Draw Time:</span> <h5 class="card-text" id="{{competition.end_time}}">{{competition.end_time}}</h5>
+
+       <p class="card-text">{{competition.description}}</p>
+       {% if competition.slug %}
+       <a href="{% url 'PostDetail' competition.slug %}" class="btn btn-danger">Read More&rarr;</a>
+       {% endif %}
+     </div>
+   </div>
+ 
+   {% endfor %}
+ </div></div></div>
+</div>
+<script>
+        
+  // Set the date we're counting down to
+  // var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+ var all= document.querySelectorAll("[id='end']");
+//  var all= document.querySelectorAll("[id='stat']");
+ all.forEach(myFunction);
+ function myFunction(item, index) {
+  console.log(item.className);
+  // var countDownDate = new Date(document.getElementById("end").innerHTML).getTime();
+  // var dtim = document.getElementById("end").innerHTML.split(",");
+  var dtim=item.innerHTML.split(",")
+  var tim = dtim[2].split(" ");
+  console.log(dtim);
+  var tim0 = tim[1].split(":");
+  if(tim[2]=="p.m."){
+    var time = 12+parseInt(tim0[0]%12);
+    time+=":"+tim0[1]+":"+"00"
+    console.log(time);
+  }
+  else{
+    var time = tim0[0];
+    time+=":"+tim0[1]+":"+"00";
+    console.log(time);
+  }
+  var ftime=dtim[0]+","+dtim[1]+" "+time;
+  ftime=ftime.replace(".", "");
+  console.log(ftime);
+  var countDownDate = new Date(ftime).getTime();
+  console.log(ftime);
+  // var countDownDate=Document.getElementById("end").innerHTML.getTime();
+  // Update the count down every 1 second
+  var x = setInterval(function() {
+
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display the result in the element with id="demo"
+  //  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+    //+ minutes + "m " + seconds + "s ";
+//mycode
+var elms = document.querySelectorAll("[id='"+item.innerHTML+"']");
+
+for(var i = 0; i < elms.length; i++) 
+  elms[i].innerHTML = days + "D "+ hours +"H "+ minutes + "M " + seconds + "S" ;
+// document.getElementById(item.innerHTML).innerHTML = days + "D "+ hours +"H "+ minutes + "M " + seconds + "S" ;
+
+// console.log(document.getElementsByClassName(item.innerHTML)[0]);
+    // If the count down is finished, write some text 
+    if (distance < 0 || document.getElementsByClassName(item.innerHTML)[0].value=="1" ) {
+      clearInterval(x);
+      var cards=document.querySelectorAll("[id='"+item.innerHTML+"'");
+      for(var i = 0; i < cards.length; i++) {
+      cards[i].innerHTML = "EXPIRED";}
+
+    }
+  }, 1000);
+ }
+//  var cards = document.querySelectorAll("[class='card']");
+//  for(var i = 0; i < cards.length; i++) {
+//   str=toString(cards[i]);
+//   console.log(cards[i]);
+//   if(str[i].search("EXPIRED") != -1){
+//     cards[i].style.display="none";
+//   }
+//   console.log(str[i].search("EXPIRED"));
+//  }
+  </script>
+
+{% endblock %}

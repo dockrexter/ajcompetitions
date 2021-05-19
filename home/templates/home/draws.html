@@ -1,0 +1,125 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block content %}
+<section class="banner1">
+    <div class="container">
+
+<!----Upcoming Draws------>
+<h1 style="text-align:center;color:tomato;font-family: Georgia, 'Times New Roman', Times, serif;border-bottom:4px solid orange;">Upcoming Draws</h1>
+<br><br>
+<div class="card-deck color1">
+  {% for competition in competitions %}
+  {% if forloop.counter|divisibleby:4 %}
+  <br><br>
+  </div>
+
+  <div class="card-deck {% cycle 'color1' 'color1r' %}">
+  {% endif %}
+
+   <div class="card">
+     {% if competition.image %}
+     <img class="card-img-top w-100 h-50" src="{{ competition.image.url }}" alt="Card image cap">
+     {% endif %}
+     <div class="card-body">
+       <h3 class="card-title">{{competition.name}}</h3>
+       <input type="hidden"  class="{{competition.end_time}}" value="{{competition.status}}">
+
+      <span>Price per Ticket:</span> <h5 class="card-text">{{competition.price}}€</h5>
+      <p id="demo">
+
+      </p>
+      <div id="timer">
+      <p id="end"  >{{competition.end_time}}</p>
+      <!-- <script>myFunction();</script> -->
+      <span>End Time:</span> <h5 class="card-text" id="{{competition.end_time}}"></h5>
+      </div>
+
+       <p class="card-text">{{competition.description}}</p>
+       {% if competition.slug %}
+       <a href="{% url 'PostDetail' competition.slug %}" class="btn btn-danger">Read More&rarr;</a>
+       {% endif %}
+     </div>
+   </div>
+ 
+   {% endfor %}
+ </div>
+
+
+<br>
+
+
+    
+
+<br><br>
+
+
+
+   </div>
+
+</section>
+<script>
+        
+  // Set the date we're counting down to
+  // var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+ var all= document.querySelectorAll("[id='end']");
+//  var all= document.querySelectorAll("[id='stat']");
+ all.forEach(myFunction);
+ function myFunction(item, index) {
+  console.log(item.className);
+  // var countDownDate = new Date(document.getElementById("end").innerHTML).getTime();
+  // var dtim = document.getElementById("end").innerHTML.split(",");
+  var dtim=item.innerHTML.split(",")
+  var tim = dtim[2].split(" ");
+  console.log(dtim);
+  var tim0 = tim[1].split(":");
+  if(tim[2]=="p.m."){
+    var time = 12+parseInt(tim0[0]%12);
+    time+=":"+tim0[1]+":"+"00"
+    console.log(time);
+  }
+  else{
+    var time = tim0[0];
+    time+=":"+tim0[1]+":"+"00";
+    console.log(time);
+  }
+  var ftime=dtim[0]+","+dtim[1]+" "+time;
+  ftime=ftime.replace(".", "");
+  console.log(ftime);
+  var countDownDate = new Date(ftime).getTime();
+  console.log(ftime);
+  // var countDownDate=Document.getElementById("end").innerHTML.getTime();
+  // Update the count down every 1 second
+  var x = setInterval(function() {
+
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display the result in the element with id="demo"
+  //  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+    //+ minutes + "m " + seconds + "s ";
+//mycode
+document.getElementById(item.innerHTML).innerHTML = days + "D "+ hours +"H "+ minutes + "M " + seconds + "S" ;
+
+// console.log(document.getElementsByClassName(item.innerHTML)[0]);
+    // If the count down is finished, write some text 
+    if (distance < 0 || document.getElementsByClassName(item.innerHTML)[0].value=="1" ) {
+      clearInterval(x);
+      document.getElementById(item.innerHTML).innerHTML = "EXPIRED";
+
+
+    }
+  }, 1000);
+ }
+  </script>
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block content %}
+<section class="banner"  >
+    <div class="container">
+<div class="row">
+<div class="col-sm-6 m-auto">
+    {% if Message %}
+    
+    <form id="register" onsubmit=" event.preventDefault(); mFunction()" class="box" action="register" method="POST">{% csrf_token %}
+        <img src="{% static 'home/images/g.png' %}" width="100px" height="100px">
+        <p style="color:lightblue">Register </p>
+        <input minlength="3" type="text" name="username" class="form-control" id="usr" placeholder="username or email" value="{{user.username}}"required>
+        <p style="color: brown;">{{Message}}</p>
+        <input type="email" name="email" class="form-control" id="curr_mail" placeholder="Current Email" value="{{user.email}}"required>
+        <input minlength="8" type="password" name="password" class="form-control" id="curr1" placeholder="Password" value="{{user.password}}" required>
+        <input minlength="8" type="password" name="password1" class="form-control" id="curr2" placeholder="Re-enter Password" value="{{user.password}}" required>
+        <button id="login" class="btn" type="submit" name="create">Submit</button>
+    </form>
+    {% else %}
+    <form id="register" onsubmit=" event.preventDefault(); mFunction()" class="box" action="register" method="POST">{% csrf_token %}
+        <img src="{% static 'home/images/g.png' %}" width="100px" height="100px">
+        <p style="color:lightblue">Register </p>
+        <!-- <input minlength="3" type="hidden" name="username" class="form-control" id="usr" placeholder="username" required> -->
+        <input type="text" name="firstname" class="form-control" id="firstname" placeholder="First Name" required>
+        <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Last Name" required>
+        <input type="email" name="email" class="form-control" id="curr_mail" placeholder="Current Email"required>
+        <input type="tel" placeholder="" id="telephone" name=telephone>
+        <input minlength="8" type="password" name="password" class="form-control" id="curr1" placeholder="Password"required>
+        <input minlength="8" type="password" name="password1" class="form-control" id="curr2" placeholder="Re-enter Password"required>
+        <button id="login" class="btn" type="submit" name="create">Submit</button>
+    </form>
+    {% endif %}
+    </div>
+    </div>
+    </div>
+
+</section>
+
+<script>
+    $("#telephone").intlTelInput({
+});
+function mFunction(){
+    if (document.getElementById('curr1').value==document.getElementById('curr2').value){
+        document.getElementById("register").submit();
+        return true;
+    }
+    else{
+        alert("password dont match");
+        return false;
+    }
+};
+
+
+</script>
+
+
+{% endblock %}

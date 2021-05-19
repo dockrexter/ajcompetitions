@@ -1,0 +1,292 @@
+{% extends "home/base.html" %} 
+{% load static %}
+
+{% block content %}
+<!-- Include the PayPal JavaScript SDK -->
+
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+
+
+<div class="container">
+    <br><br><br><br><br>
+<!--Section: Block Content-->
+<section class="mb-5">
+
+  <h3 id="headline">Grab Your Tickets Before Time Ends</h3>
+  <!-- Display the countdown timer in an element -->
+  <input type="hidden" id="user" value="{{ user.get_username }}">
+  <div id="countdown">
+  <button type="button" class="btn btn-outline-dark"><span id="days"></span></button>
+      <button type="button" class="btn btn-outline-dark"><span id="hours"></span></button>
+      <button type="button" class="btn btn-outline-dark"><span id="minutes"></span></button>
+      <button type="button" class="btn btn-outline-dark"><span id="seconds"></span></button>
+  </div>
+  <p id="demo">
+  </p>
+
+  <p id="end" >{{competition.end_time}}</p>
+  <input type="hidden"  id="stat" value="{{competition.status}}">
+    <div class="row">
+      <div class="col-md-6 mb-4 mb-md-0">
+  
+        <div id="mdb-lightbox-ui"></div>
+  
+        <div class="mdb-lightbox">
+  
+          <div class="row product-gallery mx-1">
+  
+            <div class="col-12 mb-0">
+              <figure class="view overlay rounded z-depth-1 main-img">
+                  <img id="main-img"src="{{competition.image.url}}"
+                    class="img-fluid z-depth-1">
+                </a>
+              </figure>
+
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-3">
+                  <div class="view overlay rounded z-depth-1 gallery-item img">
+                    <img src="{{competition.image1.url}}"
+                      class="img-fluid">
+                    <!-- <div class="mask rgba-white-slight"></div> -->
+                  </div>
+                </div>
+
+
+                <div class="col-3">
+                  <div class="view overlay rounded z-depth-1 gallery-item img1">
+                    <img src="{{competition.image2.url}}"
+                      class="img-fluid">
+                    
+                  </div>
+                </div>
+                
+                <div class="col-3">
+                  <div class="view overlay rounded z-depth-1 gallery-item img2">
+                    <img src="{{competition.image.url}}"
+                      class="img-fluid">
+                    
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+  
+        </div>
+  
+      </div>
+      
+      
+      <div class="col-md-6">
+        <h2 id="compname">{{competition.name}}</h2>
+        <p class="mb-2 text-muted text-uppercase">Draw</p>
+        <p><span class="mr-1"><strong id="pp">{{competition.price}}</strong>€</span></p>
+        <p class="pt-1">{{competition.description}}</p>
+        <div class="table-responsive">
+          <table class="table table-sm table-borderless mb-0">
+            <tbody>
+              <tr>
+                <th class="pl-0 w-25" scope="row"><strong>Detail:</strong></th>
+                <td>{{competition.detail}}</td>
+              </tr>
+            
+                
+            </tbody>
+          </table>
+        </div>
+
+
+        <script>
+        
+        // Set the date we're counting down to
+        // var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+        var countDownDate = new Date(document.getElementById("end").innerHTML).getTime();
+        var dtim = document.getElementById("end").innerHTML.split(",");
+        var tim = dtim[2].split(" ");
+        console.log(dtim);
+        var tim0 = tim[1].split(":");
+        if(tim[2]=="p.m."){
+          var time = 12+parseInt(tim0[0]%12);
+          time+=":"+tim0[1]+":"+"00"
+          console.log(time);
+        }
+        else{
+          var time = tim0[0];
+          time+=":"+tim0[1]+":"+"00";
+          console.log(time);
+        }
+        var ftime=dtim[0]+","+dtim[1]+" "+time;
+        ftime=ftime.replace(".", "");
+        console.log(ftime);
+        var countDownDate = new Date(ftime).getTime();
+        console.log(ftime);
+        // var countDownDate=Document.getElementById("end").innerHTML.getTime();
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+          // Get today's date and time
+          var now = new Date().getTime();
+
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+
+          // Time calculations for days, hours, minutes and seconds
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          // Display the result in the element with id="demo"
+        //  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+          //+ minutes + "m " + seconds + "s ";
+//mycode
+          document.getElementById("days").innerHTML = days + "D";
+
+          document.getElementById("hours").innerHTML = hours + "H ";
+          document.getElementById("minutes").innerHTML = minutes + "M ";
+          document.getElementById("seconds").innerHTML = seconds + "S ";
+
+
+
+
+
+
+
+          // If the count down is finished, write some text 
+          if (distance < 0 || document.getElementById("stat").value=="1" ) {
+            clearInterval(x);
+
+            document.getElementById("days").innerHTML = "EXPIRED";
+            document.getElementById("hours").innerHTML = "EXPIRED";
+
+            document.getElementById("minutes").innerHTML = "EXPIRED";
+
+            document.getElementById("seconds").innerHTML = "EXPIRED";
+
+            document.getElementById("demo").innerHTML = "EXPIRED";
+       
+            document.getElementById("bk1").style.display="none";
+    
+          }
+        }, 1000);
+        </script>
+        
+        <!-- <hr> -->
+        <!-- <div class="table-responsive mb-0">
+            <table class="table table-sm table-borderless">
+              <tbody>
+                <tr>
+                  <td class="pl-0 pb-0 w-25">Quantity</td>
+                  
+                </tr>
+                <td class="pl-0">
+                    <div class="def-number-input number-input safari_only mb-0">
+                      
+                      <button type="button" class="btn btn-outline-dark" onclick="this.parentNode.querySelector('input[type=number]').stepDown(),price()"
+                        class="minus"><span>-</span></button>
+                      <input id="qq" class="quantity" min="0" max="20" name="quantity"  value="1" type="number" readonly>
+                      <button type="button" class="btn btn-outline-dark" onclick="this.parentNode.querySelector('input[type=number]').stepUp(),price()"
+                        class="plus"><span>+</span></button>
+                    </div>
+                  </td>
+                  <tr>
+                    <td class="pl-0 pb-0 w-25"><strong>Total</strong> <span id="total"class="mr-1">{{competition.price}}€</span></td>
+                    
+                  </tr>
+
+                </tbody>
+                </table>
+                </div> -->
+                <br>
+                <div class="card">
+                  <div class="card-header">
+                      <strong class="card-title">Answer some questions to increase winning chances</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <div class="col-12"><label for="text-input" class=" form-control-label">{{competition.question1}}</label></div>
+                      <div class="col-12"><input type="text" id="text-input" name="name"  class="form-control" required="required"></div>
+                  </div>
+              {% if not competition.sold_tickets == competition.no_of_tickets%}
+              {% if not user.is_authenticated %}
+              <a href="/login" ><button type="button"  id="bk" style="display:block"class="btn btn-primary btn-md mr-1 mb-2 pay">Add to cart</button></a>
+              {% else %}
+              <a href="{% url 'cart_add' competition.id %}"><button type="button" style="display:block"  id="bk1"  class="btn btn-outline-dark">Add to cart</button></a>
+              {% endif %}
+              {% endif %}
+                </div>
+                </div>
+                <br><br><br>
+            </div>
+          </div>
+  </section>
+<!--Section: Block Content-->          
+</div>
+<script>
+ 
+   // your page initialization code here
+   // the DOM will be available here
+ 
+   $( document ).ready(function() {
+     
+});
+
+ 
+ 
+    function pay() {
+    var x = document.getElementById("paypal-button-container");
+    var y = document.getElementById("demo").innerHTML;
+    var z = document.getElementById("bk");
+    var z1 = document.getElementById("bk1");
+        if (x.style.display === "none") {
+          if(y=="EXPIRED"){
+           alert("Competition Expired");
+          }
+          else{
+            x.style.display = "block";
+          }
+            
+        } else {
+            x.style.display = "none";
+        }
+    }
+      function price() {
+          var pr=document.getElementById("pp").innerHTML;
+          var q=document.getElementById("qq").value;
+          document.getElementById("total").innerHTML = q*pr +"€";
+      }
+      $(".img").click(function(e){
+        console.log($("#main-img"));
+        var prev=$("#main-img").attr("src");
+        $("#main-img").attr("src",e.target.src);
+        // e.target.src=prev;
+        console.log(e.target.src);
+        
+      });
+      $(".img1").click(function(e){
+        console.log($("#main-img"));
+        console.log(e);
+        var prev=$("#main-img").attr("src");
+        $("#main-img").attr("src",e.target.src);
+        // e.target.src=prev;
+        
+        
+      });
+      $(".img2").click(function(e){
+        console.log($("#main-img"));
+        var prev=$("#main-img").attr("src");
+        $("#main-img").attr("src",e.target.src);
+        // e.target.src=prev;
+        console.log(e.target.src);
+        
+      });
+   
+</script>
+
+
+{% endblock %}
