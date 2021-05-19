@@ -25,7 +25,7 @@ SECRET_KEY = '6r4-*9cy)#%zkxwix1(rsxt)&q2le$l0fukp+xmdw9eus_av!c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -135,3 +135,5 @@ MEDIA_URL = '/media/'
 PAYPAL_RECEIVER_EMAIL = 'mshaheer.rahi@gmail.com'
 PAYPAL_TEST = True
 CART_SESSION_ID = 'cart'
+
+
