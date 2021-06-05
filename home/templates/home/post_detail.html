@@ -175,50 +175,51 @@
           }
         }, 1000);
         </script>
-        
-        <!-- <hr> -->
-        <!-- <div class="table-responsive mb-0">
-            <table class="table table-sm table-borderless">
-              <tbody>
-                <tr>
-                  <td class="pl-0 pb-0 w-25">Quantity</td>
-                  
-                </tr>
-                <td class="pl-0">
-                    <div class="def-number-input number-input safari_only mb-0">
-                      
-                      <button type="button" class="btn btn-outline-dark" onclick="this.parentNode.querySelector('input[type=number]').stepDown(),price()"
-                        class="minus"><span>-</span></button>
-                      <input id="qq" class="quantity" min="0" max="20" name="quantity"  value="1" type="number" readonly>
-                      <button type="button" class="btn btn-outline-dark" onclick="this.parentNode.querySelector('input[type=number]').stepUp(),price()"
-                        class="plus"><span>+</span></button>
-                    </div>
-                  </td>
-                  <tr>
-                    <td class="pl-0 pb-0 w-25"><strong>Total</strong> <span id="total"class="mr-1">{{competition.price}}€</span></td>
-                    
-                  </tr>
-
-                </tbody>
-                </table>
-                </div> -->
                 <br>
                 <div class="card">
-                  <div class="card-header">
-                      <strong class="card-title">Answer some questions to increase winning chances</strong>
-                  </div>
-                  <div class="card-body">
+                  
+                  <div style='transform: scale(0.65); position: relative;'>
+                    <h4><strong class="card-title">Answer some questions to increase winning chances</strong></h4>
+                    <h3>WHAT IS SKY COLOR?</h3>
+                    <p>Choose 1 answer</p>
+                    <hr />
+                    <div id='block-11' style='padding: 10px;'>
+                      <label for='option-11' style=' padding: 5px; font-size: 2rem;'>
+                        <input type='radio'  onclick='displayAnswer1()' name='option' value='blue' id='option-11' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+                        BLUE</label>
+                      <span id='result-11'></span>
+                    </div>
+                    <hr />
+                  
+                    <div id='block-12' style='padding: 10px;'>
+                      <label for='option-12' style=' padding: 5px; font-size: 2rem;'>
+                        <input type='radio'  onclick='displayAnswer1()' name='option' value='red' id='option-12' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+                        RED</label>
+                      <span id='result-12'></span>
+                      </div>
+
+                    <hr />
+                    <div id='block-13' style='padding: 10px;'>
+                      <label for='option-13' style=' padding: 5px; font-size: 2rem;'>
+                        <input type='radio' onclick='displayAnswer1()' name='option' value='green' id='option-13' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+                        GREEN</label>
+                      <span id='result-13'></span>
+                      </div>
+                    <hr />
+                  <!-- <div class="card-body">
                     <div class="form-group">
                       <div class="col-12"><label for="text-input" class=" form-control-label">{{competition.question1}}</label></div>
                       <div class="col-12"><input type="text" id="text-input" name="name"  class="form-control" required="required"></div>
-                  </div>
+                    -->
+                  
               {% if not competition.sold_tickets == competition.no_of_tickets%}
               {% if not user.is_authenticated %}
-              <a href="/login" ><button type="button"  id="bk" style="display:block"class="btn btn-primary btn-md mr-1 mb-2 pay">Add to cart</button></a>
+              <a href="/login" ><button type="button" id="bk" style="display:block;font-size: 2rem;"class="btn btn-primary btn-md mr-1 mb-2 pay">Add to cart</button></a>
               {% else %}
-              <a href="{% url 'cart_add' competition.id %}"><button type="button" style="display:block"  id="bk1"  class="btn btn-outline-dark">Add to cart</button></a>
+              <a href="{% url 'cart_add' competition.id %}"><button type="button" style="display:block;font-size: 2rem;"  id="bk1"  class="btn btn-outline-dark">Add to cart</button></a>
               {% endif %}
               {% endif %}
+                </div>
                 </div>
                 </div>
                 <br><br><br>
@@ -228,13 +229,40 @@
 <!--Section: Block Content-->          
 </div>
 <script>
+  function displayAnswer1() {
+    if (document.getElementById('option-11').checked) {
+      document.getElementById('block-11').style.border = '3px solid limegreen'
+      document.getElementById('result-11').style.color = 'limegreen'
+      document.getElementById('result-11').innerHTML = 'Correct!'
+      document.getElementById('block-12').style.border = 'none'
+      document.getElementById('result-12').innerHTML = ''
+      document.getElementById('block-13').style.border = 'none'
+      document.getElementById('result-13').innerHTML = ''
+    }
+    if (document.getElementById('option-12').checked) {
+      document.getElementById('block-12').style.border = '3px solid red'
+      document.getElementById('result-12').style.color = 'red'
+      document.getElementById('result-12').innerHTML = 'Incorrect!'
+      document.getElementById('block-11').style.border = 'none'
+      document.getElementById('result-11').innerHTML = ''
+      document.getElementById('block-13').style.border = 'none'
+      document.getElementById('result-13').innerHTML = ''
+    }
+    if (document.getElementById('option-13').checked) {
+      document.getElementById('block-13').style.border = '3px solid red'
+      document.getElementById('result-13').style.color = 'red'
+      document.getElementById('result-13').innerHTML = 'Incorrect!'
+      document.getElementById('block-12').style.border = 'none'
+      document.getElementById('result-12').innerHTML = ''
+      document.getElementById('block-11').style.border = 'none'
+      document.getElementById('result-11').innerHTML = ''
+    }
+  }
  
    // your page initialization code here
    // the DOM will be available here
  
-   $( document ).ready(function() {
-     
-});
+
 
  
  

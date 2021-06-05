@@ -7,6 +7,7 @@ from .import views
 urlpatterns = [
     path('', views.index, name='home-index'),
     path('login', views.login, name='home-login'),
+    path('how', views.how_to, name='home-how_to'),
     path('ticket', views.ticket, name='home-ticket'),
     path('register', views.register, name='home-register'),
     path('winners', views.winners, name='home-winners'),

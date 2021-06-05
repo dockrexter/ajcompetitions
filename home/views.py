@@ -61,13 +61,13 @@ def login(request):
         user_pass = request.POST.get('password', None)
         print(user_name,user_pass)
         user = authenticate(username=user_name, password=user_pass)
-        auth_login(request,user)
         print(user)
         
         
         if user is not None:
             # A backend authenticated the credentials
             request.session['member_id'] = user.id
+            auth_login(request,user)
             if user.is_superuser:
                 print(user)
                 return HttpResponseRedirect("/admin/dashboard")
@@ -138,6 +138,10 @@ def winners(request):
         "winners":winners
     }
     return render(request,'home/winners.html',context)
+
+def how_to(request):
+    return render(request,'home/howto.html')
+
 
 
 

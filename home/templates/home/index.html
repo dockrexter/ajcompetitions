@@ -158,14 +158,10 @@
 <script>
         
   // Set the date we're counting down to
-  // var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
  var all= document.querySelectorAll("[id='end']");
-//  var all= document.querySelectorAll("[id='stat']");
  all.forEach(myFunction);
  function myFunction(item, index) {
   console.log(item.className);
-  // var countDownDate = new Date(document.getElementById("end").innerHTML).getTime();
-  // var dtim = document.getElementById("end").innerHTML.split(",");
   var dtim=item.innerHTML.split(",")
   var tim = dtim[2].split(" ");
   console.log(dtim);
@@ -185,8 +181,7 @@
   console.log(ftime);
   var countDownDate = new Date(ftime).getTime();
   console.log(ftime);
-  // var countDownDate=Document.getElementById("end").innerHTML.getTime();
-  // Update the count down every 1 second
+  
   var x = setInterval(function() {
 
     // Get today's date and time
@@ -201,17 +196,14 @@
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // Display the result in the element with id="demo"
-  //  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-    //+ minutes + "m " + seconds + "s ";
+   
 //mycode
 var elms = document.querySelectorAll("[id='"+item.innerHTML+"']");
 
 for(var i = 0; i < elms.length; i++) 
-  elms[i].innerHTML = days + "D "+ hours +"H "+ minutes + "M " + seconds + "S" ;
-// document.getElementById(item.innerHTML).innerHTML = days + "D "+ hours +"H "+ minutes + "M " + seconds + "S" ;
+// days + "D "+ hours +"H "+ minutes + "M " + seconds + "S" ;
+  elms[i].innerHTML ="<div id='countdown'><button type='button' class='btn btn-outline-dark mr-1'><span id='days'>"+days + "D"+"</span></button><button type='button' class='mr-1 btn btn-outline-dark'><span id='hours'>"+hours +"H"+ "</span></button><button type='button' class='btn btn-outline-dark mr-1'><span id='minutes'>"+minutes +"M"+ "</span></button><button type='button' class='btn btn-outline-dark mr-1'><span id='seconds'>"+seconds +"S"+ "</span></button></div>"
 
-// console.log(document.getElementsByClassName(item.innerHTML)[0]);
     // If the count down is finished, write some text 
     if (distance < 0 || document.getElementsByClassName(item.innerHTML)[0].value=="1" ) {
       clearInterval(x);
@@ -222,15 +214,6 @@ for(var i = 0; i < elms.length; i++)
     }
   }, 1000);
  }
-//  var cards = document.querySelectorAll("[class='card']");
-//  for(var i = 0; i < cards.length; i++) {
-//   str=toString(cards[i]);
-//   console.log(cards[i]);
-//   if(str[i].search("EXPIRED") != -1){
-//     cards[i].style.display="none";
-//   }
-//   console.log(str[i].search("EXPIRED"));
-//  }
   </script>
 
 {% endblock %}

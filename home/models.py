@@ -27,6 +27,10 @@ class competition(models.Model):
     question1=models.CharField(max_length=30000)
     question2=models.CharField(max_length=30000)
     question3=models.CharField(max_length=30000)
+    # option1=models.CharField(max_length=30000)
+    # option2=models.CharField(max_length=30000)
+    # option3=models.CharField(max_length=30000)
+    # correcrt_option=models.IntegerField(default=1)
     status = models.IntegerField(default=0, choices=STATUS_CHOICES)
 
     def save(self, *args, **kwargs):
