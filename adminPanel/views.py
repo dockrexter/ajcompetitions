@@ -133,6 +133,24 @@ def editUser(request,id):
 def addUsers(request):
     return render(request,"adminPanel/add_user.html")
 
+def addPromo(request):
+    return render(request,"adminPanel/add_promo.html")
+
+def savePromo(request):
+    promo=request.POST.get('promo', None)
+    time=request.POST.get('end_time', None)
+    prom=promos(code=promo,validity=time)
+    prom.save()
+    return HttpResponseRedirect('/admin/showpromo')
+
+def showPromo(request):
+    users = promos.objects.all()  
+    return render(request,"adminPanel/show_promo.html",{'Users':users})
+
+def deletePromo(request,id):
+    update_promos=promos.objects.filter(id=id).delete()
+    return HttpResponseRedirect('/admin')
+
 
 def saveUsers(request):
     user_name = request.POST.get('username', None)

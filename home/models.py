@@ -35,7 +35,7 @@ class competition(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = self.name
+            self.slug = self.name.split(" ")[0]
         super(competition, self).save(*args, **kwargs)
     
     def __str__(self):
@@ -55,4 +55,8 @@ class tickets(models.Model):
 
 class winner(models.Model):
     ticket=models.ForeignKey(tickets, on_delete=models.CASCADE)
+
+class promos(models.Model):
+    code=models.CharField(max_length=30)
+    percent=models.IntegerField()
 

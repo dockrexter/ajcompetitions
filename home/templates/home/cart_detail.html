@@ -52,6 +52,7 @@
 </script>
 <!-- Section: Block Content -->
 <section>
+    
     <br><br><br><br><br>
     <div class="container">
 
@@ -64,7 +65,11 @@
         <!-- Card -->
         <div class="card wish-list mb-3">
           <div class="card-body">
-  
+            {% for promo in Promos %}
+            <input id="promos" type="hidden" value="{{promo.code}}">
+            <input id="{{promo.code}}" type="hidden" value="{{promo.percent}}">
+            
+            {% endfor %}
             <h5 class="mb-4">Cart (<span>{{request.session.cart|length}}</span> items)</h5>
             {% for key,value in request.session.cart.items %}
             <hr class="mb-4">
@@ -176,6 +181,11 @@
                 <span><strong>$</strong><strong id="totalamount">53.98</strong></span>
               </li>
             </ul>
+          
+              <div class="form-group"> <label>Have coupon?</label>
+                  <div class="input-group"> <input type="text" class="form-control coupon" id="code" name="code" placeholder="Coupon code"> <span class="input-group-append"> <button id="codebutton"class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
+              </div>
+          
   
             <button type="button" class="btn btn-primary btn-block waves-effect waves-light">pay with barklays</button>
             <br>
@@ -225,6 +235,23 @@
         }
         console.log(total);
         $('*[id*=totalamount]').text(total);
+        $('#codebutton').click(function(){
+          var total = 0;
+          var prices=$('*[id*=prices]');
+          for (var i = 0; i < prices.length; i++) {
+            total+=parseFloat(prices[i].innerText)
+          }
+        $('*[id*=totalamount]').text(total);
+          var valid_promos=$('[id="promos"]')
+          var code=$('#code').val();
+          for (var i = 0; i < valid_promos.length; i++) {
+            if(code == valid_promos[i].defaultValue){
+              $('*[id*=totalamount]').text($('#totalamount').text()-($('#totalamount').text()*($('#'+code).val()/100)));
+              
+              break;
+            }
+        }
+        });
         
     });
 

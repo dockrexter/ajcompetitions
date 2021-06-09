@@ -16,6 +16,10 @@ from .models import *
 from django.contrib.auth.decorators import user_passes_test
 from cart.cart import Cart
 from django.shortcuts import redirect
+from datetime import datetime
+
+# Current date time in local system
+
 
 # Create your views here.
 
@@ -220,4 +224,5 @@ def cart_clear(request):
 
 @login_required(login_url="/login")
 def cart_detail(request):
-    return render(request, 'home/cart_detail.html')
+    promo = promos.objects.all()
+    return render(request, 'home/cart_detail.html',{'Promos':promo})
